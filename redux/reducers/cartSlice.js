@@ -13,7 +13,11 @@ const cartSlice  = createSlice({
         },
        remove (state , action){
         return state.filter((val)=> val.id !== action.payload); 
+       },
+       increment (state , action){
+        return
        }
+
     }
 
 })
