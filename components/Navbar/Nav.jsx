@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import Link from 'next/link'
-
+import { useSelector } from 'react-redux'
 const Nav = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
-
+const {cartProduct} = useSelector((state)=>state.cart)
+const length = cartProduct?.length;
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
     { label: 'Books', href: '/books' },
     { label: 'Authors', href: '/authors' },
-    { label: 'Cart', href: '/cart' },
+    { label: 'Cart', href: '/cart' , cartAmount : length },
     { label: 'Contact', href: '/contact' },
   ]
 
@@ -43,13 +44,22 @@ const Nav = () => {
                 mobileNavOpen ? 'flex ' : 'hidden'
               } md:flex  flex-col md:flex-row md:items-center`}
             >
-              {navLinks.map(({ label, href }) => (
+              {navLinks.map(({ label, href , cartAmount }) => (
                 <Link key={label} href={href}>
                   <div
                     onClick={() => setMobileNavOpen(false)}
-                    className="cursor-pointer text-white hover:text-gray-300 py-2 md:py-0 md:px-4 border-b-2 md:border-b-0 md:border-r-2 border-gray-800 transition-all duration-300 ease-in-out"
+                    className="cursor-pointer flex  items-center text-white hover:text-gray-300 py-2 md:py-0 md:px-4 border-b-2 md:border-b-0 md:border-r-2 border-gray-800 transition-all duration-300 ease-in-out"
                   >
+
                     {label}
+                    {
+                      cartAmount > 0 ? 
+                      <div className = 'ml-3 bg-white text-black w-10 font-bold h-10 rounded-full flex justify-center items-center '  >
+                    {cartAmount > 0 ? cartAmount : null}
+                  </div>
+                  :
+                  null
+                  }
                   </div>
                 </Link>
               ))}

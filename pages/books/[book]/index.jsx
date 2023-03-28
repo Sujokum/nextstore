@@ -7,12 +7,11 @@ import { add } from '@/redux/reducers/CartSlice';
 function BookItem(){
   const dispatch = useDispatch();
   const router = useRouter();
-
   const [bookData, setBookData] = useState();
 
   const handleCart = ()=>{
-    dispatch(add(bookData))
-    router.push('/cart')
+      const data = {...bookData , quantity : 1}
+      dispatch(add(data))
   }
 const handleContinueShopping = ()=>{
   router.push('/books')
