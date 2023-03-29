@@ -1,0 +1,19 @@
+
+type Book
+@model(subscriptions: null) 
+@auth(
+    rules : [
+      {allow : groups , groups : ["Admin"]}
+      {allow: private , operations : [read]}
+      {allow : public , operations : [read]}
+    ]
+)
+ {
+  id: ID!
+  title: String!
+  description: String
+  image : String
+  author : String
+  price : Float
+  category : String
+}

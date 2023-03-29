@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "store9c5c78ec": {}
+      },
+      "api": {
+        "myBookStore": {}
+      },
+      "storage": {
+        "storeimg": {}
       }
     }
   }
