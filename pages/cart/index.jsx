@@ -1,8 +1,7 @@
 import React from 'react'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useSelector , useDispatch } from 'react-redux'
-import { remove , incrementCartItem , decrementCartItem , getCartTotal  } from '@/redux/reducers/CartSlice'
+import { remove , incrementCartItem , decrementCartItem , getCartTotal  } from '@/redux/reducers/cartSlice';
 const Cart = () => {
   const dispatch = useDispatch();
   const router = useRouter()
@@ -13,6 +12,10 @@ const Cart = () => {
 
   const handleContinueShopping = ()=>{
     router.push('/books')
+  }
+
+  const handleCheckOut = ()=>{
+    router.push("/checkout")
   }
 
 const increment = (id)=>{
@@ -43,7 +46,7 @@ const decrement = (id)=>{
 
   return (
     <>
-      <div    className = 'flex flex-col  bg-cart-img justify-center bg-[100%] bg-center items-center w-full min-h-screen px-20' >
+      <div    className = 'flex flex-col pt-20  bg-cart-img justify-center bg-[100%] bg-center items-center w-full min-h-screen px-20' >
       <div className='w-full bg-white/10 py-3 shadow-lg rounded-xl backdrop-blur-lg border border-slate-400 flex justify-between mt-20 items-start' >
       <button onClick={handleContinueShopping}  className='bg-green-500  ml-5	 hover:bg-green-400	flex items-center  justify-center w-48  text-white px-4 py-2 rounded-lg  shadow-lg' >Continue Shopping  </button>
         <div className='text-white font-bold flex w-1/3 justify-evenly ' >
@@ -53,7 +56,7 @@ const decrement = (id)=>{
           </div>
           <div>
 
-      <button onClick={handleContinueShopping}  className='bg-sky-500 	 hover:bg-sky-400	flex items-center  justify-center w-48  text-white px-4 py-2 rounded-lg  shadow-lg' >Check Out  </button>
+      <button onClick={handleCheckOut}  className='bg-sky-500 	 hover:bg-sky-400	flex items-center  justify-center w-48  text-white px-4 py-2 rounded-lg  shadow-lg' >Check Out  </button>
       <button onClick={handleContinueShopping}  className='bg-red-500 	 hover:bg-red-400	flex items-center  justify-center w-48 mt-5  text-white px-4 py-2 rounded-lg  shadow-lg' >Clear All  </button>
           </div>
 
@@ -69,7 +72,7 @@ const decrement = (id)=>{
             <div className='flex justify-between' >
               <div>
           <h1 className='text-lg font-bold' >{book.title}</h1>
-          <h1 className='text-sm font-bold' >Review : {book.rating.rate}</h1>
+          <h1 className='text-sm font-bold' >Review : 5</h1>
 
               </div>
           <h1 className='text-lg font-bold' >${book.price}</h1>
@@ -89,12 +92,10 @@ const decrement = (id)=>{
             height = {200}
           /> */}
           <div className='mt-4 flex items-center  ' >
-          <Image
-            src={book.image}
+          <img
+            src={book.bookImage}
             alt = 'book'
-            width={100}
-            height = {100}
-            className = 'rounded-lg border shadow-md px-3 py-2'
+            className = 'rounded-lg h-36 w-auto border shadow-md px-3 py-2'
           />
           </div>
           <div className='mt-4 flex items-center  ' >

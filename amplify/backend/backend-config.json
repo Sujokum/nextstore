@@ -58,9 +58,55 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    },
+    "userPoolGroups": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "store9c5c78ec"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito-UserPool-Groups"
     }
   },
-  "function": {},
+  "function": {
+    "PaymentCreate": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "providerPlugin": "awscloudformation",
+      "service": "S3AndCloudFront"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_PaymentCreate_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "PaymentCreate"
+        }
+      ]
+    },
+    "AMPLIFY_function_PaymentCreate_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "PaymentCreate"
+        }
+      ]
+    }
+  },
   "storage": {
     "storeimg": {
       "dependsOn": [],

@@ -1,6 +1,69 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createPaymentIntent = /* GraphQL */ `
+  mutation CreatePaymentIntent(
+    $productName: String!
+    $price: Int!
+    $quantity: Int!
+  ) {
+    createPaymentIntent(
+      productName: $productName
+      price: $price
+      quantity: $quantity
+    ) {
+      clientSecret
+    }
+  }
+`;
+export const createOrder = /* GraphQL */ `
+  mutation CreateOrder(
+    $input: CreateOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    createOrder(input: $input, condition: $condition) {
+      name
+      email
+      phone
+      address
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateOrder = /* GraphQL */ `
+  mutation UpdateOrder(
+    $input: UpdateOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    updateOrder(input: $input, condition: $condition) {
+      name
+      email
+      phone
+      address
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteOrder = /* GraphQL */ `
+  mutation DeleteOrder(
+    $input: DeleteOrderInput!
+    $condition: ModelOrderConditionInput
+  ) {
+    deleteOrder(input: $input, condition: $condition) {
+      name
+      email
+      phone
+      address
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createBook = /* GraphQL */ `
   mutation CreateBook(
     $input: CreateBookInput!
@@ -10,10 +73,12 @@ export const createBook = /* GraphQL */ `
       id
       title
       description
-      image
+      bookImage
+      authorImage
       author
       price
       category
+      email
       createdAt
       updatedAt
     }
@@ -28,10 +93,12 @@ export const updateBook = /* GraphQL */ `
       id
       title
       description
-      image
+      bookImage
+      authorImage
       author
       price
       category
+      email
       createdAt
       updatedAt
     }
@@ -46,10 +113,12 @@ export const deleteBook = /* GraphQL */ `
       id
       title
       description
-      image
+      bookImage
+      authorImage
       author
       price
       category
+      email
       createdAt
       updatedAt
     }

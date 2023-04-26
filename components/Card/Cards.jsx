@@ -1,5 +1,6 @@
-import React from 'react'
-const Cards = ({category , description , image , price , title , id}) => {
+import React from 'react';
+const Cards =  ({category , description , image , price , title , id}) => {
+
   return (
     <div className="container noselect">
   <div className="canvas">

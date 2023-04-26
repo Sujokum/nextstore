@@ -13,13 +13,23 @@
     },
     "categories": {
       "auth": {
-        "store9c5c78ec": {}
+        "store9c5c78ec": {},
+        "userPoolGroups": {}
       },
       "api": {
         "myBookStore": {}
       },
       "storage": {
         "storeimg": {}
+      },
+      "function": {
+        "PaymentCreate": {
+          "deploymentBucketName": "amplify-store-dev-182416-deployment",
+          "s3Key": "amplify-builds/PaymentCreate-4f343848683976675631-build.zip"
+        }
+      },
+      "hosting": {
+        "S3AndCloudFront": {}
       }
     }
   }

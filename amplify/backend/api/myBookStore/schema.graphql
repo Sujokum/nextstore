@@ -1,4 +1,26 @@
 
+type Mutation{
+  createPaymentIntent( productName : String!  price : Int!  quantity : Int!) : PaymentIntent! @function(name: "PaymentCreate-${env}")
+}
+
+type PaymentIntent {
+  clientSecret : String!
+}
+
+
+type Order 
+@model @auth( rules : [
+      {allow : groups , groups : ["Admin"]}
+      {allow: private , operations : [create , read]}
+    ])
+{
+
+name: String!
+email : String!
+phone : Int!
+address : String! 
+} 
+
 type Book
 @model(subscriptions: null) 
 @auth(
@@ -12,8 +34,10 @@ type Book
   id: ID!
   title: String!
   description: String
-  image : String
+  bookImage : String
+  authorImage : String
   author : String
   price : Float
   category : String
+  email : String
 }

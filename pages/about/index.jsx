@@ -10,9 +10,9 @@ const About = () => {
           <p className = 'w-full md:w-3/5  text-sm md:text-lg lg:text-xl text-white  md:pr-28  '  >
           I am an avid reader myself and have a vast knowledge of different genres and authors, from classic literature to contemporary fiction and non-fiction. I can recommend books based on your preferences and interests, and help you discover new titles that you may not have otherwise considered.
 
-My goal is to make your experience at this book store as enjoyable and fulfilling as possible. Whether you are looking for a thrilling mystery, a thought-provoking memoir, or a heart-warming romance, I am here to guide you in your search.
+          My goal is to make your experience at this book store as enjoyable and fulfilling as possible. Whether you are looking for a thrilling mystery, a thought-provoking memoir, or a heart-warming romance, I am here to guide you in your search.
 
-So, take a look around the website, browse our collection of books, and let me know how I can be of assistance. I look forward to helping you find your next favorite read!
+          So, take a look around the website, browse our collection of books, and let me know how I can be of assistance. I look forward to helping you find your next favorite read!
           </p>
       </div>
     </div>

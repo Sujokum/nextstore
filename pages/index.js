@@ -1,5 +1,9 @@
-import React from 'react'
+import React  from 'react'
+
 const index = () => {
+
+ 
+ 
   return (
     <>
     <div className = 'h-[100vh] saturate-50  bg-left-top bg-cover px-6' style={{backgroundImage : "url('/assests/bgHome.jpg')"}}>
