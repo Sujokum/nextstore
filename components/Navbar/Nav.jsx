@@ -141,7 +141,7 @@ const [authChange , setAuthChange] = useState(false)
                 </Link>
               ) : (
                 <button
-                  className='bg-orange-500 px-3 py-2 rounded-xl flex items-center justify-center text-white text-bold'
+                  className='bg-orange-500 px-3 py-2 w-1/2 md:w-24  rounded-xl flex items-center justify-center text-white text-bold'
                   onClick={signOut}
                 >
                   Sign Out
