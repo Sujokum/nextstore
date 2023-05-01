@@ -25,7 +25,7 @@
       "function": {
         "PaymentCreate": {
           "deploymentBucketName": "amplify-store-dev-182416-deployment",
-          "s3Key": "amplify-builds/PaymentCreate-6b38506142507938345a-build.zip"
+          "s3Key": "amplify-builds/PaymentCreate-634c487836526f4e796a-build.zip"
         }
       },
       "hosting": {
