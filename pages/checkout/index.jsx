@@ -7,7 +7,7 @@ import {
 } from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
-import { toast } from 'react-hot-toast';
+// import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/router';
 
 
@@ -15,29 +15,27 @@ const index = () => {
   const route =  useRouter()
   const {cartProduct , totalPrice , totalQuantity} = useSelector((state)=>state.cart)
   // const {redirectToCheckout} = useStripe();
-  const [fields ,  setFields] = useState({
-    name : '',
-    email: '',
-    phone : '',  
-    address : '',
+  // console.log(cartProduct);
+  // const [fields ,  setFields] = useState({
+  //   name : '',
+  //   email: '',
+  //   phone : '',  
+  //   address : '',
     
-  });
+  // });
   const [clientSecret , setClientSecret] = useState('');
  
          const fetchPaymentIntent = async ()=>{
          try{
-          const amount = +totalPrice
-          const cartItem = cartProduct[0]?.title;
-
-                    const input = {
-                      productName : cartItem,
-                      price : amount,
-                      quantity : totalQuantity
-                    }
-                        const response = await API.graphql(
-                          graphqlOperation(createPaymentIntent, input),
+          const cartData = {
+            items : cartProduct
+          }
+          // const cartItem = JSON.stringify(cartData);
+                    const response = await API.graphql(
+                          graphqlOperation(createPaymentIntent, {input : cartData}),
                         );
-                        console.log('response' , response)
+                        
+                        // console.log('response' , response.data.createPaymentIntent)
                         setClientSecret(response.data.createPaymentIntent.clientSecret)
                       }catch(err){
                         console.log('err' , err)
@@ -50,25 +48,25 @@ const index = () => {
   
   const checkOut = async (e)=>{
     e.preventDefault()
-    const {name, email, phone, address} = fields;
-    if(!name){
-      toast.error('Please Fill The name field')
-    }
-    if(!email){
-      toast.error('Please Fill The name field')
-    }
-    if(!phone){
-      toast.error('Please Fill The name field')
-    }
-    if(!address){
-      toast.error('Please Fill The name field')
-    }
+    // const {name, email, phone, address} = fields;
+    // if(!name){
+    //   toast.error('Please Fill The name field')
+    // }
+    // if(!email){
+    //   toast.error('Please Fill The name field')
+    // }
+    // if(!phone){
+    //   toast.error('Please Fill The name field')
+    // }
+    // if(!address){
+    //   toast.error('Please Fill The name field')
+    // }
 
-    await API.graphql({
-      query: createBook,
-      variables: {input: addBook},
-      authMode: 'AMAZON_COGNITO_USER_POOLS'
-    })
+    // await API.graphql({
+    //   query: createBook,
+    //   variables: {input: addBook},
+    //   authMode: 'AMAZON_COGNITO_USER_POOLS'
+    // })
     route.push(clientSecret);
       
   }
@@ -91,13 +89,13 @@ const index = () => {
             <form>
            
               <label htmlFor="name">User Name:</label>
-              <input type="text" onChange = {(e)=>setFields({...fields , name : e.target.value})}  value={fields.name} name = 'name'   />
+              <input type="text"  name = 'name'   />
               <label htmlFor="email">Email:</label>
-              <input type="email" id="email" name="email"  onChange = {(e)=>setFields({...fields , email : e.target.value})}  value={fields.email} />
+              <input type="email" id="email" name="email"   />
               <label htmlFor="phone">Phone:</label>
-              <input type="email" id="phone" name="phone" onChange = {(e)=>setFields({...fields , phone : e.target.value})}  value={fields.phone} />
+              <input type="email" id="phone" name="phone" />
               <label htmlFor="address">Address:</label>
-              <textarea className = 'w-full'  id="address" onChange = {(e)=>setFields({...fields , address : e.target.value})}  value={fields.address} name="address" ></textarea>
+              <textarea className = 'w-full'  id="address"  name="address" ></textarea>
               <button onClick = {checkOut} type="submit">CheckOut</button>
             </form>
           </div>

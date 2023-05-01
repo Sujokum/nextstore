@@ -2,16 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const createPaymentIntent = /* GraphQL */ `
-  mutation CreatePaymentIntent(
-    $productName: String!
-    $price: Int!
-    $quantity: Int!
-  ) {
-    createPaymentIntent(
-      productName: $productName
-      price: $price
-      quantity: $quantity
-    ) {
+  mutation CreatePaymentIntent($input: PaymentInput!) {
+    createPaymentIntent(input: $input) {
       clientSecret
     }
   }

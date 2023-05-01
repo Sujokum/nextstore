@@ -2,37 +2,38 @@ const stripe = require('stripe')('sk_test_51MtZ9NIIgSkSVy7jEBlGKWXtGv6ovWvh0w4Mr
 
 
 exports.handler = async (event) => {
-    const {typeName, arguments} = event;
+    const {typeName} = event;
+    const {  items } = event.arguments.input;
 
     if(typeName !== 'Mutation'){
         throw new Error('Request is not a mutation ;')
     }
-    if(!arguments?.productName){
-        throw new Error('productName argument is required ;')
-    }
-    if(!arguments?.price){
-        throw new Error('price argument is required ;')
-    }
+    console.log('Items' ,  items)
+  
+   const cartData = items?.map((item)=>{
+      console.log(item.title)
+    return {
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: item.title,
+            images : [item.bookImage],
+            description : item.description,
+            metadata : {
+              id : item.id
+            }
+          },
+          unit_amount: item.price * 100,
+        },
+        quantity: item.quantity,
+      }
     
-    if(!arguments?.quantity){
-        throw new Error('quantity argument is required ;')
-    }
-    
- 
+   }) 
+ console.log('CartItems' ,  cartData)
 
     const session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: arguments.productName,
-              },
-              unit_amount: arguments.price,
-            },
-            quantity: arguments.quantity,
-          },
-        ],
+        line_items:  cartData
+        ,
         mode: 'payment',
         success_url: 'http://localhost:3000/',
         cancel_url: 'http://localhost:3000/',

@@ -1,6 +1,25 @@
+input PaymentItemInput {
+  author: String!
+  id : String!
+  authorImage: String!
+  bookImage: String!
+  category: String!
+  createdAt : String!
+  title: String!
+  description: String!
+  email: String!
+  price: Float!
+  quantity: Float!
+  updatedAt : String!
+}
+
+input PaymentInput {
+  items: [PaymentItemInput!]!
+}
+
 
 type Mutation{
-  createPaymentIntent( productName : String!  price : Int!  quantity : Int!) : PaymentIntent! @function(name: "PaymentCreate-${env}")
+  createPaymentIntent(input: PaymentInput!) : PaymentIntent! @function(name: "PaymentCreate-${env}")
 }
 
 type PaymentIntent {
