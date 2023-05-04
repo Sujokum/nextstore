@@ -1,10 +1,13 @@
-import React , {useState} from "react";
+import React , {useState , useEffect} from "react";
 import {Authenticator } from  '@aws-amplify/ui-react';
 import toast, { Toaster } from 'react-hot-toast';
+
 import { API , Storage    } from 'aws-amplify';
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import {createBook} from '../../src/graphql/mutations'
+
+import Link from "next/link";
 const Admin = () => {
   const {group } = useSelector((state)=>state.user)  
   const route =  useRouter()
@@ -75,6 +78,7 @@ const Admin = () => {
 
 
 
+
   return (
 
 
@@ -90,6 +94,7 @@ const Admin = () => {
           <h3 className='text-3xl sm:text-4xl leading-normal font-extrabold tracking-tight text-gray-900'>
             Add {user.username} <span className='text-indigo-600'>Book</span>
           </h3>
+          <Link href={'/admin/orders'} className="px-[20px] bg-green-400 py-[10px] mt-3 rounded-md text-slate-600 font-bold"  >Check Orders</Link>
         </div>
 
         <form className='w-full'>

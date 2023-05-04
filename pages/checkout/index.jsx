@@ -1,6 +1,6 @@
 import React , { useState , useEffect} from 'react'
 import { API , graphqlOperation } from 'aws-amplify';
-import {createPaymentIntent} from '../../src/graphql/mutations'
+import {createPaymentIntent , createOrder} from '../../src/graphql/mutations'
 import {Authenticator} from '@aws-amplify/ui-react';
 import {
   Elements,
@@ -9,20 +9,21 @@ import {loadStripe} from '@stripe/stripe-js';
 import { useSelector } from 'react-redux';
 // import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import { toast } from 'react-hot-toast';
 
 
 const index = () => {
+  const { email } = useSelector((state) => state.user);
+  
   const route =  useRouter()
-  const {cartProduct , totalPrice , totalQuantity} = useSelector((state)=>state.cart)
-  // const {redirectToCheckout} = useStripe();
-  // console.log(cartProduct);
-  // const [fields ,  setFields] = useState({
-  //   name : '',
-  //   email: '',
-  //   phone : '',  
-  //   address : '',
+  const {cartProduct } = useSelector((state)=>state.cart)
+  const [fields ,  setFields] = useState({
+    name : '',
+    email: email,
+    phone : '',  
+    address : '',
     
-  // });
+  });
   const [clientSecret , setClientSecret] = useState('');
  
          const fetchPaymentIntent = async ()=>{
@@ -35,7 +36,7 @@ const index = () => {
                           graphqlOperation(createPaymentIntent, {input : cartData}),
                         );
                         
-                        // console.log('response' , response.data.createPaymentIntent)
+                        
                         setClientSecret(response.data.createPaymentIntent.clientSecret)
                       }catch(err){
                         console.log('err' , err)
@@ -43,31 +44,39 @@ const index = () => {
                       }
 
   useEffect(()=>{
-    fetchPaymentIntent()
+    fetchPaymentIntent();
   },[])
   
   const checkOut = async (e)=>{
     e.preventDefault()
-    // const {name, email, phone, address} = fields;
-    // if(!name){
-    //   toast.error('Please Fill The name field')
-    // }
-    // if(!email){
-    //   toast.error('Please Fill The name field')
-    // }
-    // if(!phone){
-    //   toast.error('Please Fill The name field')
-    // }
-    // if(!address){
-    //   toast.error('Please Fill The name field')
-    // }
-
-    // await API.graphql({
-    //   query: createBook,
-    //   variables: {input: addBook},
-    //   authMode: 'AMAZON_COGNITO_USER_POOLS'
-    // })
+    const {name, email, phone, address} = fields;
+    if(!name){
+      toast.error('Please Fill The name field')
+    }
+    if(!email){
+      toast.error('Please Fill The Email field')
+    }
+    if(!phone){
+      toast.error('Please Fill The Phone field')
+    }
+    if(!address){
+      toast.error('Please Fill The Address field')
+    }
+    const data = {
+      name  : name,
+      email : email ,
+      phone : phone,
+      address : address
+    }
+    await API.graphql({
+      query: createOrder,
+      variables: {input: data},
+      authMode: 'AMAZON_COGNITO_USER_POOLS'
+    }).then(()=>{
+      toast.success('Your Order Is Submited')
+    })
     route.push(clientSecret);
+
       
   }
   
@@ -86,17 +95,17 @@ const index = () => {
             <span className="heading">Order Now</span>
 
             
-            <form>
+            <form onSubmit={checkOut} >
            
               <label htmlFor="name">User Name:</label>
-              <input type="text"  name = 'name'   />
+              <input type="text"  name = 'name' onChange={(e)=>setFields({...fields , name : e.target.value })} value={fields.name}  />
               <label htmlFor="email">Email:</label>
-              <input type="email" id="email" name="email"   />
+              <input type="email" id="email" name="email" disabled  value={fields.email} />
               <label htmlFor="phone">Phone:</label>
-              <input type="email" id="phone" name="phone" />
+              <input type="text" id="phone" name="phone" onChange={(e)=>setFields({...fields , phone : e.target.value })} value={fields.phone}  />
               <label htmlFor="address">Address:</label>
-              <textarea className = 'w-full'  id="address"  name="address" ></textarea>
-              <button onClick = {checkOut} type="submit">CheckOut</button>
+              <textarea className = 'w-full'  id="address" onChange={(e)=>setFields({...fields , address : e.target.value })} value={fields.address} name="address" ></textarea>
+              <button type="submit">CheckOut</button>
             </form>
           </div>
 
